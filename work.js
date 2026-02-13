@@ -38,3 +38,42 @@ function createEventCard(eventData){
 
    return card;
 }
+
+function addEvent(eventData){
+    const emptyState = document.querySelector(".empty-state");
+    if (emptyState){ emptyState.remove();
+}
+eventContainer.appendChild(createEventCard(eventData));
+}
+eventForm.addEventListener("submit",(event)=>{
+    event.preventDefault();
+
+    const eventData = {
+        title: eventTitle.value,
+        data: eventDate.value,
+        category: eventCategory.value,
+        description: eventDescription.value
+    }
+    addEvent(eventData);
+});
+
+clearAllBtn.addEventListener("click",()=>{
+    eventContainer.innerHTML=`<div class="empty-state">No events yet. Add your first event!</div>
+    </div>`
+});
+
+addSampleBtn.addEventListener("click",()=> {
+    sampleEvents.forEach(addEvent);
+});
+
+eventContainer.addEventListener("click",(event)=>{
+        const card = event.target.closest('.event-card');
+        
+        if(event.target.classList.contains("delete-btn")){
+            card.remove();
+    }
+
+    if(!eventContainer.querySelector(".event-card")){
+        eventContainer.innerHTML=`<div class= "empty-state"> No Elements yet. Add your first event </div>`
+    }
+});
